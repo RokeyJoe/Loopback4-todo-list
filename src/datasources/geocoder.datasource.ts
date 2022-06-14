@@ -1,6 +1,7 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
+// 修改config为如下所示
 const config = {
   name: 'geocoder',
   connector: 'rest',
@@ -10,6 +11,7 @@ const config = {
       'content-type': 'application/json'
     }
   },
+  // 百度地图
   operations: [
     {
       template: {
@@ -18,20 +20,17 @@ const config = {
         query: {
           output: 'json',
           address: '{address}',
-          ak: "araTO7gmdic35Lpxf92csVTPHC1B7aMe"
-        }
+          ak: "你的ak" // 需要到百度自行申请
+        },
+        // responsePath: '$.result.addressMatches[*].coordinates',
       },
       functions: {
         geocode: ['address'],
       }
     }
-  ]
+  ],
 };
 
-// Observe application's life cycle to disconnect the datasource when
-// application is stopped. This allows the application to be shut down
-// gracefully. The `stop()` method is inherited from `juggler.DataSource`.
-// Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
 @lifeCycleObserver('datasource')
 export class GeocoderDataSource extends juggler.DataSource
   implements LifeCycleObserver {

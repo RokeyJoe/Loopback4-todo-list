@@ -1,7 +1,7 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {BelongsToAccessor, DefaultCrudRepository, repository} from '@loopback/repository';
 import {DbDataSource} from '../datasources';
-import {Todo, TodoRelations, TodoList} from '../models';
+import {Todo, TodoList, TodoRelations} from '../models';
 import {TodoListRepository} from './todo-list.repository';
 
 export class TodoRepository extends DefaultCrudRepository<
