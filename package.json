@@ -1,0 +1,94 @@
+{
+  "name": "todo-list",
+  "version": "0.0.1",
+  "description": "A todo list API made with Loopback 4.",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": "12 || 14 || 16 || 17"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t todo-list .",
+    "docker:run": "docker run -p 3000:3000 -d todo-list",
+    "premigrate": "npm run build",
+    "migrate": "node ./dist/migrate",
+    "preopenapi-spec": "npm run build",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
+    "dev": "npm run rebuild && tsc-watch --target es2017 --outDir ./dist --onSuccess \"node . \" --onFirstSuccess \"npm run open:api\" --onCompilationComplete \"npm run notify:api\" && live-server ./dist",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build",
+    "open:api": "open-cli http://[::1]:3000/explorer/",
+    "notify:api": "notify -t \"Hello Joe\" -m \"I'm Done\" --icon ./public/zongzi.jpg -s none"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": [
+      "src/"
+    ],
+    "ignore": [
+      "dist/*"
+    ],
+    "ext": "ts",
+    "exec": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Z20070184 <Joe_Yan@wistron.com>",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/boot": "^4.1.1",
+    "@loopback/core": "^3.1.1",
+    "@loopback/repository": "^4.1.1",
+    "@loopback/rest": "^11.1.1",
+    "@loopback/rest-explorer": "^4.1.1",
+    "@loopback/service-proxy": "^4.1.1",
+    "copyfiles": "^2.4.1",
+    "env": "^0.0.2",
+    "livereload": "^0.9.3",
+    "loopback-connector-postgresql": "^5.4.0",
+    "loopback-connector-rest": "^3.7.0",
+    "nodemon": "^2.0.16",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^8.1.1",
+    "@loopback/eslint-config": "^12.0.3",
+    "@loopback/testlab": "^4.1.1",
+    "@types/node": "^12.20.46",
+    "eslint": "^8.10.0",
+    "live-server": "^1.2.2",
+    "node-notifier-cli": "^2.0.0",
+    "open-cli": "^7.0.1",
+    "source-map-support": "^0.5.21",
+    "supervisor": "^0.12.0",
+    "tsc-watch": "^5.0.3",
+    "typescript": "~4.5.5"
+  }
+}
