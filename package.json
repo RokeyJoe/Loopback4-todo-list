@@ -37,7 +37,8 @@
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
     "rebuild": "npm run clean && npm run build",
     "open:api": "open-cli http://[::1]:3000/explorer/",
-    "notify:api": "notify -t \"Hello Joe\" -m \"I'm Done\" --icon ./public/zongzi.jpg -s none"
+    "notify:api": "notify -t \"Hello Joe\" -m \"I'm Done\" --icon ./public/zongzi.jpg -s none",
+    "buildSDK": "curl http://[::1]:3000/openapi.json -o openapi.json && ng-openapi-gen --input openapi.json --output ./sdk"
   },
   "nodemonConfig": {
     "verbose": true,

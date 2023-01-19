@@ -7,6 +7,7 @@ import {TodoList, TodoListWithRelations} from './todo-list.model';
       schema: 'lb4', // 指定schema
       table: 'todo'  // 表名
     },
+
     foreignKeys: {
       fk_todo_todoListId: {
         name: 'fk_todo_todoListId',
